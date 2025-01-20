@@ -20,7 +20,7 @@ local qs = [[
 ---@async
 M.read_local_files = a.wrap(function(file_extensions, cb)
 	local files = {}
-	local fa = { "-a" }
+	local fa = { "^*.*css$" }
 
 	-- WARNING need to check for performance in larger projects
 	for _, extension in ipairs(file_extensions) do
@@ -44,7 +44,6 @@ M.read_local_files = a.wrap(function(file_extensions, cb)
 			---@type string
 			local file_name = u.get_file_name(file, "[^/]+$")
 			if file_name then
-				if string.find(file_name, ".scss")  or string.find(file_name, '.css') then
 					local fd = io.open(file, "r")
 					local data = fd:read("*a")
 					fd:close()
@@ -98,7 +97,6 @@ M.read_local_files = a.wrap(function(file_extensions, cb)
 					cb(classes, ids)
 				end
 			end
-		end
 	end
 end, 2)
 
